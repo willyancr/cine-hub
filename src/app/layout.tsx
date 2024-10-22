@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
+import SideBar from "@/app/components/sidebar";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -20,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${nunito.className} antialiased`}>{children}</body>
+      <body className={`${nunito.className} flex antialiased mx-auto w-full max-w-[1200px] `}>
+        <SideBar />
+        {children}
+      </body>
     </html>
   );
 }

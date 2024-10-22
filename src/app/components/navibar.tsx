@@ -12,8 +12,9 @@ export default function NaviBar({ children, href, isActive }: NaviBarProps) {
     <Link
       href={href}
       className={cn(
-        "flex items-center gap-3 px-4 text-zinc-400 transition-all hover:text-zinc-50",
-        isActive && "border-l-4 border-l-blue-400 text-zinc-50",
+        "flex items-center gap-3 rounded-xl p-2 text-zinc-400 transition-all hover:text-zinc-50",
+        isActive &&
+          "rounded-xl bg-gradient-custom text-zinc-50 brightness-110 transition-all",
       )}
     >
       {children}

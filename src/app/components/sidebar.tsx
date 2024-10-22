@@ -24,7 +24,7 @@ export default function SideBar() {
 
           <span className="text-2xl font-bold">CineHub</span>
         </div>
-        <nav className="flex flex-col gap-8">
+        <nav className="flex flex-col gap-4">
           <NaviBar href="/" isActive>
             <IconHome stroke={1.5} />
             Home
@@ -47,6 +47,7 @@ export default function SideBar() {
           </NaviBar>
         </nav>
       </aside>
+      
     </div>
   );
 }
