@@ -10,8 +10,8 @@ import NaviBar from "./navibar";
 
 export default function SideBar() {
   return (
-    <div className="flex h-screen">
-      <aside className="m-5 flex w-56 flex-col rounded-xl bg-gradient-to-br from-[#141E30] to-[#243B55] p-6">
+    <div className="flex">
+      <aside className="m-5 flex h-screen w-56 flex-col rounded-xl bg-gradient-to-br from-[#141E30] to-[#243B55] p-6">
         <div className="mb-16 mt-5 flex items-center justify-center gap-3">
           <Image
             src="/icon-logo.png"
@@ -47,7 +47,6 @@ export default function SideBar() {
           </NaviBar>
         </nav>
       </aside>
-      
     </div>
   );
 }
