@@ -52,7 +52,7 @@ export default function SerieShowing() {
                 quality={100}
                 className="h-[190px] w-full rounded-xl"
               />
-              <div className="absolute right-2 top-1 flex items-center gap-1 rounded-xl bg-secondary/40 p-1 text-xs">
+              <div className="absolute right-2 top-1 flex items-center gap-1 rounded-xl bg-secondary/40 px-2 py-1 text-xs">
                 {serie.vote_average.toFixed(1)}
                 <IconStar stroke={1.5} size={12} className="text-primary" />
               </div>

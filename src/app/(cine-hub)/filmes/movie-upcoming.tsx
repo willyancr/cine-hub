@@ -4,6 +4,7 @@ import { api } from "@/app/lib/axios";
 import { VideoContent } from "@/app/types/video-content";
 import { IconHourglassHigh, IconStar } from "@tabler/icons-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -44,15 +45,17 @@ export default function MovieUpComing() {
         >
           {movies.results?.map((movie) => (
             <SwiperSlide key={movie.id}>
-              <Image
-                src={`${process.env.NEXT_PUBLIC_TMDB_IMG}${movie.poster_path}`}
-                alt="capa-superman"
-                width={900}
-                height={900}
-                quality={100}
-                className="h-[190px] w-full rounded-xl"
-              />
-              <div className="absolute right-2 top-1 flex items-center gap-1 rounded-xl bg-secondary/40 p-1 text-xs">
+              <Link href={`/detalhes-filme/${movie.id}`}>
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_TMDB_IMG}${movie.poster_path}`}
+                  alt={`Capa do filme ${movie.title}`}
+                  width={900}
+                  height={900}
+                  quality={100}
+                  className="h-[190px] w-full rounded-xl"
+                />
+              </Link>
+              <div className="absolute right-2 top-1 flex items-center gap-1 rounded-xl bg-secondary/40 px-2 py-1 text-xs">
                 {movie.vote_average.toFixed(1)}
                 <IconStar stroke={1.5} size={12} className="text-primary" />
               </div>
