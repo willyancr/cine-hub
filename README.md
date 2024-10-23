@@ -4,8 +4,6 @@ CineHub é um projeto em desenvolvimento que visa criar um catálogo pessoal e i
 
 
 ## Tecnologias Utilizadas
-
-
 - Front-end: Nextjs, TypeScript, TailwindCSS
 - API: The Movie Database (TMDb)
 
