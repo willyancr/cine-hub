@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CineHub - Seu Catálogo pessoal de Filmes e Séries
 
-## Getting Started
+CineHub é um projeto em desenvolvimento que visa criar um catálogo pessoal e intuitivo para organizar seus filmes e séries favoritos.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tecnologias Utilizadas
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Front-end: Nextjs, TypeScript, TailwindCSS
+- API: The Movie Database (TMDb)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Funcionalidades (Em desenvolvimento)
 
-To learn more about Next.js, take a look at the following resources:
+### Lista de Assistidos:
+- Exibe os filmes e séries que você já assistiu.
+- Permite remover itens da lista.
+### Watchlist:
+- Exibe os filmes e séries que você deseja assistir.
+- Permite adicionar e remover itens da lista.
+- Permite mover itens para a lista de "Assistidos".
+### Detalhes do Filme/Série:
+- Título, sinopse, classificação do IMDb (via TMDb).
+- Campos para adicionar sua própria nota e comentários.
+### Busca do Filme/Série:
+- Busca por nome do filme/série.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Licença
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Este projeto é licenciado sob a [Licença MIT](https://choosealicense.com/licenses/mit/)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

@@ -1,13 +1,16 @@
+"use client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type NaviBarProps = {
   children: React.ReactNode;
   href: string;
-  isActive?: boolean;
 };
 
-export default function NaviBar({ children, href, isActive }: NaviBarProps) {
+export default function NaviBar({ children, href }: NaviBarProps) {
+  const pathname = usePathname();
+  const isActive = pathname === href;
   return (
     <Link
       href={href}

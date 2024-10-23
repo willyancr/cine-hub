@@ -1,14 +1,14 @@
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Search } from "lucide-react";
 
-export default function InputSearch() {
+export default function InputSearch({placeholder}: {placeholder: string}) {
   return (
     <div className="space-y-2">
       <div className="relative w-80 ">
         <Input
           id="input-26"
           className="peer pe-9 ps-9 rounded-xl"
-          placeholder="Pesquisar filmes e series"
+          placeholder={placeholder}
           type="search"
         />
         <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-muted-foreground/80 peer-disabled:opacity-50">
