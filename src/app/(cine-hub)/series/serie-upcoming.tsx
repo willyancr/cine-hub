@@ -2,7 +2,7 @@
 
 import { api } from "@/app/lib/axios";
 import { VideoContent } from "@/app/types/video-content";
-import { IconPlayerPlay, IconStar } from "@tabler/icons-react";
+import { IconHourglassHigh, IconStar } from "@tabler/icons-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import "swiper/css";
@@ -11,20 +11,20 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function MovieShowing() {
-  const [movies, setMovies] = useState<VideoContent>({ results: [] });
+export default function SerieShowing() {
+  const [series, setSeries] = useState<VideoContent>({ results: [] });
 
   useEffect(() => {
-    api.get(`/movie/now_playing`).then((response) => {
-      setMovies(response.data);
+    api.get(`/tv/airing_today`).then((response) => {
+      setSeries(response.data);
     });
-  }, [setMovies]);
+  }, [setSeries]);
 
   return (
     <div className="flex flex-col gap-4">
       <h1 className="mt-5 flex items-center gap-2 text-3xl font-bold">
-        <IconPlayerPlay stroke={1.5} size={32} className="text-primary" />
-        Em Cartaz
+        <IconHourglassHigh stroke={1.5} size={32} className="text-primary" />
+        Lançado em breve
       </h1>
       <div className="grid grid-cols-1 gap-1">
         <Swiper
@@ -42,10 +42,10 @@ export default function MovieShowing() {
           modules={[Pagination, Navigation]}
           className="w-full"
         >
-          {movies.results?.map((movie) => (
-            <SwiperSlide key={movie.id}>
+          {series.results?.map((serie) => (
+            <SwiperSlide key={serie.id}>
               <Image
-                src={`${process.env.NEXT_PUBLIC_TMDB_IMG}${movie.poster_path}`}
+                src={`${process.env.NEXT_PUBLIC_TMDB_IMG}${serie.poster_path}`}
                 alt="capa-superman"
                 width={900}
                 height={900}
@@ -53,7 +53,7 @@ export default function MovieShowing() {
                 className="h-[190px] w-full rounded-xl"
               />
               <div className="absolute right-2 top-1 flex items-center gap-1 rounded-xl bg-secondary/40 p-1 text-xs">
-                {movie.vote_average.toFixed(1)}
+                {serie.vote_average.toFixed(1)}
                 <IconStar stroke={1.5} size={12} className="text-primary" />
               </div>
             </SwiperSlide>

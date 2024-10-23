@@ -6,13 +6,13 @@ import Image from "next/image";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css";
-import { IconTrendingUp } from "@tabler/icons-react";
+import { IconStar, IconTrendingUp } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { api } from "@/app/lib/axios";
-import { Movies } from "@/app/types/movies";
+import { VideoContent } from "@/app/types/video-content";
 
 export default function MoviePopular() {
-  const [movies, setMovies] = useState<Movies>({ results: [] });
+  const [movies, setMovies] = useState<VideoContent>({ results: [] });
 
   useEffect(() => {
     api.get(`/movie/popular`).then((response) => {
@@ -20,12 +20,11 @@ export default function MoviePopular() {
     });
   }, [setMovies]);
 
-  console.log(movies.results);
   return (
     <div className="flex flex-col gap-4">
       <h1 className="mt-5 flex items-center gap-2 text-3xl font-bold">
         <IconTrendingUp stroke={1.5} size={32} className="text-primary" />
-        Filmes Populares
+        Populares
       </h1>
       <div className="grid grid-cols-1 gap-1">
         <Swiper
@@ -53,6 +52,10 @@ export default function MoviePopular() {
                 quality={100}
                 className="h-[190px] w-full rounded-xl"
               />
+              <div className="absolute right-2 top-1 flex items-center gap-1 rounded-xl bg-secondary/40 p-1 text-xs">
+                {movie.vote_average.toFixed(1)}
+                <IconStar stroke={1.5} size={12} className="text-primary" />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

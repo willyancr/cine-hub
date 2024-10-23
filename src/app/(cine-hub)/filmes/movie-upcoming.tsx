@@ -1,8 +1,8 @@
 "use client";
 
 import { api } from "@/app/lib/axios";
-import { Movies } from "@/app/types/movies";
-import { IconHourglassHigh } from "@tabler/icons-react";
+import { VideoContent } from "@/app/types/video-content";
+import { IconHourglassHigh, IconStar } from "@tabler/icons-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import "swiper/css";
@@ -12,7 +12,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function MovieUpComing() {
-  const [movies, setMovies] = useState<Movies>({ results: [] });
+  const [movies, setMovies] = useState<VideoContent>({ results: [] });
 
   useEffect(() => {
     api.get(`/movie/upcoming`).then((response) => {
@@ -20,7 +20,6 @@ export default function MovieUpComing() {
     });
   }, [setMovies]);
 
-  console.log(movies.results);
   return (
     <div className="flex flex-col gap-4">
       <h1 className="mt-5 flex items-center gap-2 text-3xl font-bold">
@@ -53,6 +52,10 @@ export default function MovieUpComing() {
                 quality={100}
                 className="h-[190px] w-full rounded-xl"
               />
+              <div className="absolute right-2 top-1 flex items-center gap-1 rounded-xl bg-secondary/40 p-1 text-xs">
+                {movie.vote_average.toFixed(1)}
+                <IconStar stroke={1.5} size={12} className="text-primary" />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
