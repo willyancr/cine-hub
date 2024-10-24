@@ -41,7 +41,7 @@ export default function SideBar() {
             <IconHourglassHigh stroke={1.5} />
             WachtList
           </NaviBar>
-          <NaviBar href="/assitidos">
+          <NaviBar href="/assistidos">
             <IconSquareRoundedCheck stroke={1.5} />
             Assitidos
           </NaviBar>

@@ -1,5 +1,5 @@
 "use client";
-import { CardDescover } from "@/app/components/card-discovers";
+import { CardDescover } from "@/app/(cine-hub)/(home)/card-discovers";
 import { IconSparkles } from "@tabler/icons-react";
 import "swiper/css";
 import "swiper/css/navigation";
