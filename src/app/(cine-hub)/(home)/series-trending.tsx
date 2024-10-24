@@ -10,6 +10,7 @@ import { IconStar, IconTrendingUp } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { api } from "@/app/lib/axios";
 import { VideoContent } from "@/app/types/video-content";
+import Link from "next/link";
 
 export default function SeriesTrending() {
   const [series, setSeries] = useState<VideoContent>({ results: [] });
@@ -44,14 +45,16 @@ export default function SeriesTrending() {
         >
           {series.results?.map((serie) => (
             <SwiperSlide key={serie.id}>
-              <Image
-                src={`${process.env.NEXT_PUBLIC_TMDB_IMG}${serie.poster_path}`}
-                alt="capa-superman"
-                width={900}
-                height={900}
-                quality={100}
-                className="h-[190px] w-full rounded-xl"
-              />
+              <Link href={`/detalhes-serie/${serie.id}`}>
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_TMDB_IMG}${serie.poster_path}`}
+                  alt={`Capa da serie ${serie.title}`}
+                  width={900}
+                  height={900}
+                  quality={100}
+                  className="h-[190px] w-full rounded-xl"
+                />
+              </Link>
               <div className="absolute right-2 top-1 flex items-center gap-1 rounded-xl bg-secondary/40 px-2 py-1 text-xs">
                 {serie.vote_average.toFixed(1)}
                 <IconStar stroke={1.5} size={12} className="text-primary" />

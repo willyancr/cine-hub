@@ -1,8 +1,7 @@
 "use client";
 import { IconInfoSquareRounded, IconStar } from "@tabler/icons-react";
-import { convertRuntime, formatCurrency } from "@/app/utils/conversion";
 import ReviewSection from "@/app/components/card-review";
-import { VideoDetails } from "@/app/types/video-details";
+import { SerieDetails } from "@/app/types/serie-details";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -11,7 +10,7 @@ import { api } from "@/app/lib/axios";
 import Image from "next/image";
 
 export default function DetailsSerie({ params }: { params: { id: string } }) {
-  const [detailsSeries, setDetailsSeries] = useState<VideoDetails>();
+  const [detailsSeries, setDetailsSeries] = useState<SerieDetails>();
   const id = params.id;
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
             <div className="flex flex-col items-center justify-center p-6 md:w-1/2">
               <Image
                 src={`${process.env.NEXT_PUBLIC_TMDB_IMG}${detailsSeries?.poster_path}`}
-                alt="Capa do filme"
+                alt={`Capa da serie ${detailsSeries?.name}`}
                 width={500}
                 height={500}
                 quality={100}
@@ -53,9 +52,9 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
               <div className="flex flex-col">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold">
-                    {detailsSeries?.title}{" "}
+                    {detailsSeries?.name}{" "}
                     <span className="text-zinc-300">
-                      ({detailsSeries?.release_date.substring(0, 4)})
+                      ({detailsSeries?.first_air_date.substring(0, 4)})
                     </span>
                   </h2>
                   <Badge className="flex w-fit items-center gap-1 rounded-xl border-none bg-gradient-custom py-1 text-white">
@@ -70,7 +69,7 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
                       .join(" • ")}
                   </span>
                   <span className="text-sm text-zinc-400">
-                    - {convertRuntime(detailsSeries?.runtime ?? 0)}
+                    - {detailsSeries?.number_of_seasons} Temp.
                   </span>
                 </div>
               </div>
@@ -84,7 +83,7 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
                 <div className="flex flex-col">
                   <span className="font-semibold">Titulo Original</span>
                   <span className="text-zinc-300">
-                    {detailsSeries?.original_title}
+                    {detailsSeries?.original_name}
                   </span>
                 </div>
                 <div className="flex flex-col">
@@ -94,9 +93,9 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold">Orçamento</span>
+                  <span className="font-semibold">Nº Episódios</span>
                   <span className="text-zinc-300">
-                    {formatCurrency(detailsSeries?.budget ?? 0)}
+                    {detailsSeries?.number_of_episodes}
                   </span>
                 </div>
               </div>
@@ -114,7 +113,7 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
         </Card>
 
         {/* Reviews */}
-        <ReviewSection id={id} />
+        <ReviewSection id={id} review={'tv'} />
       </div>
     </main>
   );

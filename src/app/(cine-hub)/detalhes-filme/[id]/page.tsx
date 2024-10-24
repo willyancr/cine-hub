@@ -2,7 +2,7 @@
 import { IconInfoSquareRounded, IconStar } from "@tabler/icons-react";
 import { convertRuntime, formatCurrency } from "@/app/utils/conversion";
 import ReviewSection from "@/app/components/card-review";
-import { VideoDetails } from "@/app/types/video-details";
+import { MovieDetails } from "@/app/types/movie-details";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -11,7 +11,7 @@ import { api } from "@/app/lib/axios";
 import Image from "next/image";
 
 export default function DetailsMovie({ params }: { params: { id: string } }) {
-  const [detailsMovies, setDetailsMovies] = useState<VideoDetails>();
+  const [detailsMovies, setDetailsMovies] = useState<MovieDetails>();
   const id = params.id;
 
   useEffect(() => {
@@ -114,7 +114,7 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
         </Card>
 
         {/* Reviews */}
-        <ReviewSection id={id} />
+        <ReviewSection id={id} review={'movie'} />
       </div>
     </main>
   );

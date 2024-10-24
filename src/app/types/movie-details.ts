@@ -5,7 +5,7 @@ type Genres = {
 type Country = {
   country: string;
 };
-export type VideoDetails = {
+export type MovieDetails = {
   budget: number;
   genres: Genres[];
   id: number;

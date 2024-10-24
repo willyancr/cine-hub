@@ -5,12 +5,12 @@ import { VideoReviews } from "../types/video-reviews";
 import { useEffect, useState } from "react";
 import { api } from "../lib/axios";
 
-export default function ReviewSection({ id }: { id: string }) {
+export default function ReviewSection({ id, review }: { id: string, review: string }) {
   const [reviews, setReviews] = useState<VideoReviews>({ results: [] });
 
   useEffect(() => {
-    api.get(`movie/${id}/reviews`).then((res) => setReviews(res.data));
-  }, [id, setReviews]);
+    api.get(`${review}/${id}/reviews`).then((res) => setReviews(res.data));
+  }, [id, review]);
 
   return (
     <>
