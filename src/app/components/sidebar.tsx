@@ -7,6 +7,7 @@ import {
   IconSquareRoundedCheck,
 } from "@tabler/icons-react";
 import NaviBar from "./navibar";
+import InputSearch from "./input-search";
 
 export default function SideBar() {
   return (
@@ -45,6 +46,7 @@ export default function SideBar() {
             <IconSquareRoundedCheck stroke={1.5} />
             Assitidos
           </NaviBar>
+          <InputSearch placeholder="Pesquisar" />
         </nav>
       </aside>
     </div>
