@@ -16,7 +16,7 @@ export default function SeriePopular() {
   const [series, setSeries] = useState<VideoContent>({ results: [] });
 
   useEffect(() => {
-    api.get(`/tv/popular`).then((response) => {
+    api.get(`/trending/tv/day`).then((response) => {
       setSeries(response.data);
     });
   }, [setSeries]);
@@ -25,7 +25,7 @@ export default function SeriePopular() {
     <div className="flex flex-col gap-4">
       <h1 className="mt-5 flex items-center gap-2 text-3xl font-bold">
         <IconTrendingUp stroke={1.5} size={32} className="text-primary" />
-        Populares
+        Tendência do dia
       </h1>
       <div className="grid grid-cols-1 gap-1">
         <Swiper

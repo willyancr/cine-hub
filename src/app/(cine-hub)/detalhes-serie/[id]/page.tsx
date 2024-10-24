@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { api } from "@/app/lib/axios";
 import Image from "next/image";
+import CardTrailer from "@/app/components/card-trailer";
 
 export default function DetailsSerie({ params }: { params: { id: string } }) {
   const [detailsSeries, setDetailsSeries] = useState<SerieDetails>();
@@ -87,9 +88,9 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold">Idioma Original</span>
-                  <span className="uppercase text-zinc-300">
-                    {detailsSeries?.original_language}
+                  <span className="font-semibold">Emissora</span>
+                  <span className="text-zinc-300">
+                    {detailsSeries?.networks.map((network) => network.name)}
                   </span>
                 </div>
                 <div className="flex flex-col">
@@ -112,8 +113,11 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
           </div>
         </Card>
 
+        {/* Trailer */}
+        <CardTrailer id={id} trailerType={"tv"}/>
+
         {/* Reviews */}
-        <ReviewSection id={id} review={'tv'} />
+        <ReviewSection id={id} review={"tv"} />
       </div>
     </main>
   );

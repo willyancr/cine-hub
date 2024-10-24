@@ -1,7 +1,7 @@
 import InputSearch from "@/app/components/input-search";
 import { IconDeviceTv } from "@tabler/icons-react";
 import SeriePopular from "./serie-popular";
-import SerieShowing from "./serie-showing";
+import SerieShowing from "./serie-top-rated";
 import SerieUpComing from "./serie-upcoming";
 
 export default function Series() {

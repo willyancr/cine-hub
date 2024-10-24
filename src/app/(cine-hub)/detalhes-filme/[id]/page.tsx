@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { api } from "@/app/lib/axios";
 import Image from "next/image";
+import CardTrailer from "@/app/components/card-trailer";
 
 export default function DetailsMovie({ params }: { params: { id: string } }) {
   const [detailsMovies, setDetailsMovies] = useState<MovieDetails>();
@@ -31,7 +32,7 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
             className="text-primary"
           />
         </h1>
-        <Card className="mt-12 w-full max-w-4xl overflow-hidden text-white">
+        <Card className="my-12 w-full max-w-4xl overflow-hidden text-white">
           <div className="flex flex-col md:flex-row">
             {/* Left column */}
             <div className="flex flex-col items-center justify-center p-6 md:w-1/2">
@@ -112,6 +113,9 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
             </div>
           </div>
         </Card>
+
+        {/* Trailer */}
+        <CardTrailer id={id} trailerType={"movie"}/>
 
         {/* Reviews */}
         <ReviewSection id={id} review={'movie'} />

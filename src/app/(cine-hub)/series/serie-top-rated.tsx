@@ -2,7 +2,7 @@
 
 import { api } from "@/app/lib/axios";
 import { VideoContent } from "@/app/types/video-content";
-import { IconPlayerPlay, IconStar } from "@tabler/icons-react";
+import { IconStar } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ export default function SerieShowing() {
   const [series, setSeries] = useState<VideoContent>({ results: [] });
 
   useEffect(() => {
-    api.get(`/tv/on_the_air`).then((response) => {
+    api.get(`/tv/top_rated`).then((response) => {
       setSeries(response.data);
     });
   }, [setSeries]);
@@ -24,8 +24,8 @@ export default function SerieShowing() {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="mt-5 flex items-center gap-2 text-3xl font-bold">
-        <IconPlayerPlay stroke={1.5} size={32} className="text-primary" />
-        Em Cartaz
+        <IconStar stroke={1.5} size={32} className="text-primary" />
+        Mais votadas
       </h1>
       <div className="grid grid-cols-1 gap-1">
         <Swiper
