@@ -5,19 +5,41 @@ import { IconStar } from "@tabler/icons-react";
 import Link from "next/link";
 
 type Props = {
-  id: string;
+  movieId: number;
   url: string;
   title_movie: string;
   title_serie: string;
   vote_average: number;
 };
 export function CardWatchlist({
-  id,
+  movieId,
   url,
   title_movie,
   title_serie,
   vote_average,
 }: Props) {
+  const deleteMovie = (movieId: number) => {
+    try {
+      fetch(`/api/delete-watchlist`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ movieId: movieId.toString() }),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Erro ao deletar da watchlist");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log("Success:", data);
+        });
+    } catch (error) {
+      console.error("Não foi possivel deletar da watchlist", error);
+    }
+  };
   return (
     <div className="group/card w-full max-w-xs sm:max-w-sm md:max-w-md">
       <div
@@ -35,8 +57,8 @@ export function CardWatchlist({
           <Link
             href={
               title_movie.length
-                ? `/detalhes-filme/${id}`
-                : `/detalhes-serie/${id}`
+                ? `/detalhes-filme/${movieId}`
+                : `/detalhes-serie/${movieId}`
             }
           >
             <h1 className="relative z-10 text-xl font-bold text-gray-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:text-2xl md:text-3xl">
@@ -47,7 +69,11 @@ export function CardWatchlist({
             <Button className="rounded-xl bg-gradient-custom text-white hover:brightness-110">
               Assistido!
             </Button>
-            <Button variant="destructive" className="rounded-xl">
+            <Button
+              onClick={() => deleteMovie(movieId)}
+              variant="destructive"
+              className="rounded-xl"
+            >
               Remover
             </Button>
           </div>

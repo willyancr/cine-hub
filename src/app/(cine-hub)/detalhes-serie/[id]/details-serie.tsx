@@ -1,8 +1,7 @@
 "use client";
 import { IconInfoSquareRounded, IconStar } from "@tabler/icons-react";
-import { convertRuntime, formatCurrency } from "@/app/utils/conversion";
 import ReviewSection from "@/app/components/card-review";
-import { MovieDetails } from "@/app/types/movie-details";
+import { SerieDetails } from "@/app/types/serie-details";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -11,15 +10,15 @@ import { api } from "@/app/lib/axios";
 import Image from "next/image";
 import CardTrailer from "@/app/components/card-trailer";
 
-export default function DetailsMovie({ params }: { params: { id: string } }) {
+export default function DetailsSerie({ params }: { params: { id: string } }) {
+  const [detailsSeries, setDetailsSeries] = useState<SerieDetails>();
   const id = params.id;
-  const [detailsMovies, setDetailsMovies] = useState<MovieDetails>();
 
   useEffect(() => {
-    api.get(`/movie/${id}`).then((response) => {
-      setDetailsMovies(response.data);
+    api.get(`/tv/${id}`).then((response) => {
+      setDetailsSeries(response.data);
     });
-  }, [id, setDetailsMovies]);
+  }, [id, setDetailsSeries]);
 
   const addToWatchlist = () => {
     try {
@@ -29,19 +28,14 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          movieId: detailsMovies?.id.toString(),
-          title: detailsMovies?.title || "",
-          name: detailsMovies?.name || "",
-          poster_path: detailsMovies?.poster_path,
-          vote_average: detailsMovies?.vote_average,
+          movieId: detailsSeries?.id.toString(),
+          title: detailsSeries?.title || "",
+          name: detailsSeries?.name || "",
+          poster_path: detailsSeries?.poster_path,
+          vote_average: detailsSeries?.vote_average,
         }),
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Erro ao adicionar na watchlist");
-          }
-          return response.json();
-        })
+        .then((response) => response.json())
         .then((data) => {
           console.log("Success:", data);
         });
@@ -54,20 +48,20 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
     <main className="mb-40 max-h-screen w-full flex-grow p-6">
       <div className="mt-10 flex flex-col gap-4">
         <h1 className="flex items-center gap-2 text-3xl font-bold">
-          Detalhes do Filme
+          Detalhes da Serie
           <IconInfoSquareRounded
             stroke={1.5}
             size={32}
             className="text-primary"
           />
         </h1>
-        <Card className="my-12 w-full max-w-4xl overflow-hidden text-white">
+        <Card className="mt-12 w-full max-w-4xl overflow-hidden text-white">
           <div className="flex flex-col md:flex-row">
             {/* Left column */}
             <div className="flex flex-col items-center justify-center p-6 md:w-1/2">
               <Image
-                src={`${process.env.NEXT_PUBLIC_TMDB_IMG}${detailsMovies?.poster_path}`}
-                alt="Capa do filme"
+                src={`${process.env.NEXT_PUBLIC_TMDB_IMG}${detailsSeries?.poster_path}`}
+                alt={`Capa da serie ${detailsSeries?.name}`}
                 width={500}
                 height={500}
                 quality={100}
@@ -83,50 +77,50 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
               <div className="flex flex-col">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold">
-                    {detailsMovies?.title}{" "}
+                    {detailsSeries?.name}{" "}
                     <span className="text-zinc-300">
-                      ({detailsMovies?.release_date.substring(0, 4)})
+                      ({detailsSeries?.first_air_date.substring(0, 4)})
                     </span>
                   </h2>
                   <Badge className="flex w-fit items-center gap-1 rounded-xl border-none bg-gradient-custom py-1 text-white">
-                    {detailsMovies?.vote_average.toFixed(1)}
+                    {detailsSeries?.vote_average.toFixed(1)}
                     <IconStar stroke={2} size={12} className="text-white" />
                   </Badge>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="text-sm text-zinc-400">
-                    {detailsMovies?.genres
+                    {detailsSeries?.genres
                       .map((genre) => genre.name)
                       .join(" • ")}
                   </span>
                   <span className="text-sm text-zinc-400">
-                    - {convertRuntime(detailsMovies?.runtime ?? 0)}
+                    - {detailsSeries?.number_of_seasons} Temp.
                   </span>
                 </div>
               </div>
               <div>
                 <h3 className="text-xl font-semibold">Sinopse</h3>
                 <p className="text-sm text-zinc-400">
-                  {detailsMovies?.overview}
+                  {detailsSeries?.overview}
                 </p>
               </div>
               <div className="flex items-center justify-between gap-1 text-sm">
                 <div className="flex flex-col">
                   <span className="font-semibold">Titulo Original</span>
                   <span className="text-zinc-300">
-                    {detailsMovies?.original_title}
+                    {detailsSeries?.original_name}
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold">Idioma Original</span>
-                  <span className="uppercase text-zinc-300">
-                    {detailsMovies?.original_language}
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold">Orçamento</span>
+                  <span className="font-semibold">Emissora</span>
                   <span className="text-zinc-300">
-                    {formatCurrency(detailsMovies?.budget ?? 0)}
+                    {detailsSeries?.networks.map((network) => network.name)}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-semibold">Nº Episódios</span>
+                  <span className="text-zinc-300">
+                    {detailsSeries?.number_of_episodes}
                   </span>
                 </div>
               </div>
@@ -147,10 +141,10 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
         </Card>
 
         {/* Trailer */}
-        <CardTrailer id={id} trailerType={"movie"} />
+        <CardTrailer id={id} trailerType={"tv"} />
 
         {/* Reviews */}
-        <ReviewSection id={id} review={"movie"} />
+        <ReviewSection id={id} review={"tv"} />
       </div>
     </main>
   );

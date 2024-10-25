@@ -4,7 +4,7 @@ import { CardWatchlist } from "./card-watchlist";
 import { useEffect, useState } from "react";
 
 type MovieProps = {
-  movieId: string;
+  movieId: number;
   movie: {
     title: string;
     name: string;
@@ -46,7 +46,7 @@ export default function Watchlist() {
           {watchlists.map((watchlist) => (
             <div key={watchlist.movieId}>
               <CardWatchlist
-                id={watchlist.movieId}
+                movieId={watchlist.movieId}
                 url={watchlist.movie.poster_path}
                 title_movie={watchlist.movie.title}
                 title_serie={watchlist.movie.name}

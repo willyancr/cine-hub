@@ -13,6 +13,7 @@ export type SerieDetails = {
   genres: Genres[];
   id: number;
   name: string;
+  title: string;
   networks: Networks[];
   number_of_episodes: number;
   number_of_seasons: number;
