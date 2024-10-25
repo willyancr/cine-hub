@@ -41,8 +41,7 @@ export function CardSearch({
           </div>
           <div className="group relative mt-auto">
             <h1 className="relative z-10 text-xl font-bold text-gray-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:text-2xl md:text-3xl">
-              {title_movie ? title_movie : ""}
-              {name_serie ? name_serie : ""}
+              {title_movie ? title_movie : name_serie}
             </h1>
           </div>
         </div>

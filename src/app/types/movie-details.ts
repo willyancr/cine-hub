@@ -18,5 +18,7 @@ export type MovieDetails = {
   runtime: number;
   status: string;
   title: string;
+  name: string;
   vote_average: number;
+  media_type: string
 };

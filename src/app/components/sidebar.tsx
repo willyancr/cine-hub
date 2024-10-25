@@ -11,7 +11,7 @@ import InputSearch from "./input-search";
 
 export default function SideBar() {
   return (
-    <div className="flex ">
+    <div className="flex">
       <aside className="m-5 flex h-screen w-56 flex-col rounded-xl bg-gradient-to-br from-[#141E30] to-[#243B55] p-6">
         <div className="mb-16 mt-5 flex items-center justify-center gap-3">
           <Image
@@ -26,7 +26,7 @@ export default function SideBar() {
           <span className="text-2xl font-bold">CineHub</span>
         </div>
         <nav className="flex flex-col gap-4">
-          <NaviBar href="/" >
+          <NaviBar href="/">
             <IconHome stroke={1.5} />
             Home
           </NaviBar>
@@ -38,9 +38,9 @@ export default function SideBar() {
             <IconDeviceTv stroke={1.5} />
             Séries
           </NaviBar>
-          <NaviBar href="/wachtlist">
+          <NaviBar href="/watchlist">
             <IconHourglassHigh stroke={1.5} />
-            WachtList
+            Watchlist
           </NaviBar>
           <NaviBar href="/assistidos">
             <IconSquareRoundedCheck stroke={1.5} />

@@ -1,7 +1,7 @@
 import { IconSquareRoundedCheck } from "@tabler/icons-react";
 import { CardAssisted } from "./card-assisted";
 
-export default function Wachtlist() {
+export default function Watchlist() {
   const discovers = [
     {
       id: "01",

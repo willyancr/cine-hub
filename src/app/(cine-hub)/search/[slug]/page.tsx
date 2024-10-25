@@ -16,7 +16,7 @@ export default function Search({ params }: { params: { slug: string } }) {
   }, [slug]);
 
   return (
-    <main className="mb-10  w-full flex-grow p-6">
+    <main className="mb-10 w-full flex-grow p-6">
       <div className="mt-10 flex flex-col gap-12">
         <h1 className="flex items-center gap-2 text-3xl font-bold">
           <IconSearch stroke={1.5} size={32} className="text-primary" />
@@ -25,7 +25,9 @@ export default function Search({ params }: { params: { slug: string } }) {
 
         <p className="w-full border-b">
           Resultado encontrado com o nome de:{" "}
-          <span className="font-semibold uppercase text-primary">{slug}</span>
+          <span className="font-semibold capitalize text-primary">
+            {slug.split("%20").join(" ")}
+          </span>
         </p>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {searchs.results
