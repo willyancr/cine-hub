@@ -1,18 +1,31 @@
 "use client";
+
 import { IconInfoSquareRounded, IconStar } from "@tabler/icons-react";
+import { useStore } from "@/app/store/useMovieListsStore";
 import ReviewSection from "@/app/components/card-review";
 import { SerieDetails } from "@/app/types/serie-details";
+import CardTrailer from "@/app/components/card-trailer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { api } from "@/app/lib/axios";
 import Image from "next/image";
-import CardTrailer from "@/app/components/card-trailer";
 
 export default function DetailsSerie({ params }: { params: { id: string } }) {
-  const [detailsSeries, setDetailsSeries] = useState<SerieDetails>();
   const id = params.id;
+  const [isActiveWatchlist, setIsActiveWatchlist] = useState(false);
+  const [isActiveWatched, setIsActiveWatched] = useState(false);
+  const [detailsSeries, setDetailsSeries] = useState<SerieDetails>();
+  const { addToWatchlist, addToWatched, isInWatchlist, isInWatched } =
+    useStore();
+
+  useEffect(() => {
+    if (id) {
+      setIsActiveWatchlist(isInWatchlist(id));
+      setIsActiveWatched(isInWatched(id));
+    }
+  }, [id, isInWatchlist, isInWatched]);
 
   useEffect(() => {
     api.get(`/tv/${id}`).then((response) => {
@@ -20,27 +33,26 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
     });
   }, [id, setDetailsSeries]);
 
-  const addToWatchlist = () => {
-    try {
-      fetch(`/api/add-watchlist`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          movieId: detailsSeries?.id.toString(),
-          title: detailsSeries?.title || "",
-          name: detailsSeries?.name || "",
-          poster_path: detailsSeries?.poster_path,
-          vote_average: detailsSeries?.vote_average,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-        });
-    } catch (error) {
-      console.error("Erro ao adicionar na watchlist:", error);
+  const handleAddToWatchlist = async () => {
+    if (detailsSeries) {
+      addToWatchlist({
+        movieId: detailsSeries?.id.toString(),
+        title: detailsSeries?.title || "",
+        name: detailsSeries?.name || "",
+        poster_path: detailsSeries?.poster_path,
+        vote_average: detailsSeries?.vote_average,
+      });
+    }
+  };
+  const handleAddToWatched = async () => {
+    if (detailsSeries) {
+      addToWatched({
+        movieId: detailsSeries?.id.toString(),
+        title: detailsSeries?.title || "",
+        name: detailsSeries?.name || "",
+        poster_path: detailsSeries?.poster_path,
+        vote_average: detailsSeries?.vote_average,
+      });
     }
   };
 
@@ -125,15 +137,23 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
                 </div>
               </div>
 
-              <div className="mt-6 flex w-full flex-col items-center justify-between gap-4 lg:flex-row lg:gap-0">
+              <div className="mt-6 flex w-full flex-col items-center justify-between gap-4 lg:flex-row lg:gap-1">
                 <Button
-                  onClick={addToWatchlist}
-                  className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto"
+                  onClick={handleAddToWatchlist}
+                  disabled={isActiveWatchlist || isActiveWatched}
+                  className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
                 >
-                  Adicionar à Watchlist
+                  {isActiveWatchlist
+                    ? "Adicionado à Watchlist"
+                    : "Adicionar à Watchlist"}
                 </Button>
-                <Button className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto">
-                  Marcar como Assistido
+
+                <Button
+                  onClick={handleAddToWatched}
+                  disabled={isActiveWatched}
+                  className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
+                >
+                  {isActiveWatched ? "Já Assistido" : "Marcar como Assistido"}
                 </Button>
               </div>
             </div>

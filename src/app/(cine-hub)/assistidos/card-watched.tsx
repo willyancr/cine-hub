@@ -1,3 +1,5 @@
+"use client";
+
 import { MovieProps } from "@/app/types/movies-watchlist-ed";
 import { Button } from "@/components/ui/button";
 import { IconStar } from "@tabler/icons-react";
@@ -37,7 +39,7 @@ export function CardWatched({
 
         console.log("Filme removido com sucesso");
 
-        // Busca a lista atualizada da watchlist
+        // Busca a lista atualizada da watched
         const fetchResponse = await fetch("/api/get-watched");
         const data = await fetchResponse.json();
 

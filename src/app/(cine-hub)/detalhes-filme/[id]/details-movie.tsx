@@ -1,28 +1,31 @@
 "use client";
 import { IconInfoSquareRounded, IconStar } from "@tabler/icons-react";
 import { convertRuntime, formatCurrency } from "@/app/utils/conversion";
+import { useStore } from "@/app/store/useMovieListsStore";
 import ReviewSection from "@/app/components/card-review";
 import { MovieDetails } from "@/app/types/movie-details";
+import CardTrailer from "@/app/components/card-trailer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { api } from "@/app/lib/axios";
 import Image from "next/image";
-import CardTrailer from "@/app/components/card-trailer";
-import { useStore } from "@/app/store/useMovieListsStore";
 
 export default function DetailsMovie({ params }: { params: { id: string } }) {
   const id = params.id;
-  const { addToWatchlist, isInWatchlist } = useStore();
+  const { addToWatchlist, addToWatched, isInWatchlist, isInWatched } =
+    useStore();
+  const [isActiveWatchlist, setIsActiveWatchlist] = useState(false);
+  const [isActiveWatched, setIsActiveWatched] = useState(false);
   const [detailsMovies, setDetailsMovies] = useState<MovieDetails>();
-  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     if (id) {
-      setIsActive(isInWatchlist(id));
+      setIsActiveWatchlist(isInWatchlist(id));
+      setIsActiveWatched(isInWatched(id));
     }
-  }, [id, isInWatchlist]);
+  }, [id, isInWatchlist, isInWatched]);
 
   useEffect(() => {
     api.get(`/movie/${id}`).then((response) => {
@@ -41,31 +44,15 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
       });
     }
   };
-  const addToWatched = async () => {
-    try {
-      const response = await fetch(`/api/add-watched`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          movieId: detailsMovies?.id.toString(),
-          title: detailsMovies?.title || "",
-          name: detailsMovies?.name || "",
-          poster_path: detailsMovies?.poster_path,
-          vote_average: detailsMovies?.vote_average,
-        }),
+  const handleAddToWatched = async () => {
+    if (detailsMovies) {
+      addToWatched({
+        movieId: detailsMovies?.id.toString(),
+        title: detailsMovies?.title || "",
+        name: detailsMovies?.name || "",
+        poster_path: detailsMovies?.poster_path,
+        vote_average: detailsMovies?.vote_average,
       });
-
-      if (!response.ok) {
-        throw new Error("Erro ao adicionar na watched");
-      }
-
-      const data = await response.json();
-      console.log("Success:", data);
-      alert("Filme adicionado com sucesso!");
-    } catch (error) {
-      console.error("Erro ao adicionar na watched:", error);
     }
   };
 
@@ -151,27 +138,22 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
               </div>
 
               <div className="mt-6 flex w-full flex-col items-center justify-between gap-4 lg:flex-row lg:gap-1">
-                {isActive ? (
-                  <Button
-                    disabled={isActive}
-                    className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto"
-                  >
-                    Adicionado à Watchlist
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleAddToWatchlist}
-                    className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto"
-                  >
-                    Adicionar à Watchlist
-                  </Button>
-                )}
+                <Button
+                  onClick={handleAddToWatchlist}
+                  disabled={isActiveWatchlist || isActiveWatched}
+                  className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
+                >
+                  {isActiveWatchlist
+                    ? "Adicionado à Watchlist"
+                    : "Adicionar à Watchlist"}
+                </Button>
 
                 <Button
-                  onClick={addToWatched}
-                  className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto"
+                  onClick={handleAddToWatched}
+                  disabled={isActiveWatched}
+                  className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
                 >
-                  Marcar como Assistido
+                  {isActiveWatched ? "Já Assistido" : "Marcar como Assistido"}
                 </Button>
               </div>
             </div>

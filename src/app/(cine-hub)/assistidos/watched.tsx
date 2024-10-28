@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { IconSquareRoundedCheck } from "@tabler/icons-react";
 import { MovieProps } from "@/app/types/movies-watchlist-ed";
 import { CardWatched } from "./card-watched";
@@ -21,7 +21,7 @@ export default function Watched() {
       );
     }
   }, []);
-
+  console.log(watcheds);
   return (
     <main className="mb-40 max-h-screen w-full flex-grow p-6">
       <div className="mt-10 flex flex-col gap-12">
@@ -35,10 +35,10 @@ export default function Watched() {
         </h1>
 
         <span className="w-full border-b">
-          Você assitiu {watcheds.length ? watcheds.length : 0} filme/serie(s).
+          Você assitiu {watcheds?.length ? watcheds.length : '0'} filme/serie(s).
         </span>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {watcheds.map((watched) => (
+          {watcheds?.map((watched) => (
             <div key={watched.movieId}>
               <CardWatched
                 movieId={watched.movieId}

@@ -8,7 +8,7 @@ export async function GET() {
       include: { movie: true }, // Relaciona com o modelo de filmes
     });
 
-    // Retorna a lista de filmes da watchlist
+    // Retorna a lista de filmes da watched
     return NextResponse.json({ watched }, { status: 200 });
   } catch (error) {
     console.error("Não é possível obter a lista de watched", error);
