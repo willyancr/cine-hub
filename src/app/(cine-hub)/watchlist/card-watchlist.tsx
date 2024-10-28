@@ -1,5 +1,6 @@
 "use client";
 
+import { MovieProps } from "@/app/types/movies-watchlist-ed";
 import { Button } from "@/components/ui/button";
 import { IconStar } from "@tabler/icons-react";
 import Link from "next/link";
@@ -10,6 +11,7 @@ type Props = {
   title_movie: string;
   title_serie: string;
   vote_average: number;
+  setWatchlists: (watchlists: MovieProps[]) => void;
 };
 export function CardWatchlist({
   movieId,
@@ -17,29 +19,70 @@ export function CardWatchlist({
   title_movie,
   title_serie,
   vote_average,
+  setWatchlists,
 }: Props) {
   const deleteMovie = (movieId: number) => {
-    try {
-      fetch(`/api/delete-watchlist`, {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ movieId: movieId.toString() }),
-      })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Erro ao deletar da watchlist");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          console.log("Success:", data);
+    const removeMovie = async () => {
+      try {
+        // Remove o filme da watchlist
+        const deleteResponse = await fetch(`/api/delete-watchlist`, {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ movieId: movieId.toString() }),
         });
-    } catch (error) {
-      console.error("Não foi possivel deletar da watchlist", error);
-    }
+
+        if (!deleteResponse.ok) {
+          throw new Error("Erro ao deletar da watchlist");
+        }
+
+        console.log("Filme removido com sucesso");
+
+        // Busca a lista atualizada da watchlist
+        const fetchResponse = await fetch("/api/get-watchlist");
+        const data = await fetchResponse.json();
+
+        // Atualiza o estado local com a lista atualizada
+        setWatchlists(data.watchlist);
+      } catch (error) {
+        console.error("Não foi possível deletar da watchlist", error);
+      }
+    };
+
+    removeMovie(); // Chama a função assíncrona
   };
+  const moveToWatched = (movieId: number) => {
+    const moveMovie = async () => {
+      try {
+        const moveResponse = await fetch(`/api/move-to-watched`, {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ movieId: movieId.toString() }),
+        });
+
+        if (!moveResponse.ok) {
+          throw new Error("Erro ao mover para assistidos");
+        }
+
+        console.log("Filme movido com sucesso");
+
+        // Busca a lista atualizada da watchlist
+        const fetchResponse = await fetch("/api/get-watchlist");
+        const data = await fetchResponse.json();
+
+        // Atualiza o estado local com a lista atualizada
+        setWatchlists(data.watchlist);
+      } catch (error) {
+        console.error("Não foi possível deletar da watchlist", error);
+      }
+    };
+
+    moveMovie(); // Chama a função assíncrona
+  };
+
   return (
     <div className="group/card w-full max-w-xs sm:max-w-sm md:max-w-md">
       <div
@@ -66,7 +109,10 @@ export function CardWatchlist({
             </h1>
           </Link>
           <div className="my-4 flex flex-col gap-2 text-sm font-normal text-gray-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:flex-row sm:text-base md:text-lg">
-            <Button className="rounded-xl bg-gradient-custom text-white hover:brightness-110">
+            <Button
+              onClick={() => moveToWatched(movieId)}
+              className="rounded-xl bg-gradient-custom text-white hover:brightness-110"
+            >
               Assistido!
             </Button>
             <Button

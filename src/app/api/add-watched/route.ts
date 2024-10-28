@@ -14,14 +14,14 @@ export async function POST(request: Request) {
   const { movieId, title, name, poster_path, vote_average } = body;
 
   try {
-    const existingMovieInWatchlist = await prisma.watchlist.findFirst({
+    const existingMovieInWatched = await prisma.watched.findFirst({
       where: { movieId },
     });
 
-    // Verifica se o filme já está na watchlist
-    if (existingMovieInWatchlist) {
+    // Verifica se o filme já está na watched
+    if (existingMovieInWatched) {
       return NextResponse.json(
-        { message: "Este filme já está na sua watchlist" },
+        { message: "Este filme já está na sua watched" },
         { status: 400 },
       );
     }
@@ -39,21 +39,21 @@ export async function POST(request: Request) {
       },
     });
 
-    // Adiciona à watchlist
-    const watchlist = await prisma.watchlist.create({
+    // Adiciona à watched
+    const watched = await prisma.watched.create({
       data: {
         movieId: movie.id,
       },
     });
 
     return NextResponse.json(
-      { message: "Filme adicionado à sua watchlist", watchlist },
+      { message: "Filme adicionado à sua watched", watched },
       { status: 200 },
     );
   } catch (error) {
-    console.error("Não foi possivel adicionar na watchlist", error);
+    console.error("Não foi possivel adicionar na watched", error);
     NextResponse.json(
-      { error: "Não foi possivel adicionar na watchlist" },
+      { error: "Não foi possivel adicionar na watched" },
       { status: 500 },
     );
   }

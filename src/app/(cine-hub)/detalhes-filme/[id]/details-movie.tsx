@@ -21,9 +21,9 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
     });
   }, [id, setDetailsMovies]);
 
-  const addToWatchlist = () => {
+  const addToWatchlist = async () => {
     try {
-      fetch(`/api/add-watchlist`, {
+      const response = await fetch(`/api/add-watchlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,18 +35,44 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
           poster_path: detailsMovies?.poster_path,
           vote_average: detailsMovies?.vote_average,
         }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Erro ao adicionar na watchlist");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("Success:", data);
-        });
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao adicionar na watchlist");
+      }
+
+      const data = await response.json();
+      console.log("Success:", data);
+      alert("Filme adicionado com sucesso!");
     } catch (error) {
       console.error("Erro ao adicionar na watchlist:", error);
+    }
+  };
+  const addToWatched = async () => {
+    try {
+      const response = await fetch(`/api/add-watched`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          movieId: detailsMovies?.id.toString(),
+          title: detailsMovies?.title || "",
+          name: detailsMovies?.name || "",
+          poster_path: detailsMovies?.poster_path,
+          vote_average: detailsMovies?.vote_average,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao adicionar na watched");
+      }
+
+      const data = await response.json();
+      console.log("Success:", data);
+      alert("Filme adicionado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao adicionar na watched:", error);
     }
   };
 
@@ -138,7 +164,10 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
                 >
                   Adicionar à Watchlist
                 </Button>
-                <Button className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto">
+                <Button
+                  onClick={addToWatched}
+                  className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto"
+                >
                   Marcar como Assistido
                 </Button>
               </div>
