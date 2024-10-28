@@ -10,10 +10,19 @@ import { useEffect, useState } from "react";
 import { api } from "@/app/lib/axios";
 import Image from "next/image";
 import CardTrailer from "@/app/components/card-trailer";
+import { useStore } from "@/app/store/useMovieListsStore";
 
 export default function DetailsMovie({ params }: { params: { id: string } }) {
   const id = params.id;
+  const { addToWatchlist, isInWatchlist } = useStore();
   const [detailsMovies, setDetailsMovies] = useState<MovieDetails>();
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      setIsActive(isInWatchlist(id));
+    }
+  }, [id, isInWatchlist]);
 
   useEffect(() => {
     api.get(`/movie/${id}`).then((response) => {
@@ -21,31 +30,15 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
     });
   }, [id, setDetailsMovies]);
 
-  const addToWatchlist = async () => {
-    try {
-      const response = await fetch(`/api/add-watchlist`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          movieId: detailsMovies?.id.toString(),
-          title: detailsMovies?.title || "",
-          name: detailsMovies?.name || "",
-          poster_path: detailsMovies?.poster_path,
-          vote_average: detailsMovies?.vote_average,
-        }),
+  const handleAddToWatchlist = async () => {
+    if (detailsMovies) {
+      addToWatchlist({
+        movieId: detailsMovies?.id.toString(),
+        title: detailsMovies?.title || "",
+        name: detailsMovies?.name || "",
+        poster_path: detailsMovies?.poster_path,
+        vote_average: detailsMovies?.vote_average,
       });
-
-      if (!response.ok) {
-        throw new Error("Erro ao adicionar na watchlist");
-      }
-
-      const data = await response.json();
-      console.log("Success:", data);
-      alert("Filme adicionado com sucesso!");
-    } catch (error) {
-      console.error("Erro ao adicionar na watchlist:", error);
     }
   };
   const addToWatched = async () => {
@@ -157,13 +150,23 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
                 </div>
               </div>
 
-              <div className="mt-6 flex w-full flex-col items-center justify-between gap-4 lg:flex-row lg:gap-0">
-                <Button
-                  onClick={addToWatchlist}
-                  className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto"
-                >
-                  Adicionar à Watchlist
-                </Button>
+              <div className="mt-6 flex w-full flex-col items-center justify-between gap-4 lg:flex-row lg:gap-1">
+                {isActive ? (
+                  <Button
+                    disabled={isActive}
+                    className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto"
+                  >
+                    Adicionado à Watchlist
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleAddToWatchlist}
+                    className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto"
+                  >
+                    Adicionar à Watchlist
+                  </Button>
+                )}
+
                 <Button
                   onClick={addToWatched}
                   className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110 lg:w-auto"

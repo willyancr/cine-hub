@@ -1,8 +1,9 @@
 "use client";
+
+import { MovieProps } from "@/app/types/movies-watchlist-ed";
 import { IconUserPlus } from "@tabler/icons-react";
 import { CardWatchlist } from "./card-watchlist";
 import { useEffect, useState } from "react";
-import { MovieProps } from "@/app/types/movies-watchlist-ed";
 
 
 export default function Watchlist() {
