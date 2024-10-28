@@ -46,6 +46,7 @@ export default function Watched() {
                 title_movie={watched.movie.title}
                 title_serie={watched.movie.name}
                 vote_average={watched.movie.vote_average}
+                setWatcheds={setWatcheds}
               />
             </div>
           ))}
