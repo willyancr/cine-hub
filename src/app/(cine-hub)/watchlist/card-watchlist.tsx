@@ -4,6 +4,7 @@ import { MovieProps } from "@/app/types/movies-watchlist-ed";
 import { Button } from "@/components/ui/button";
 import { IconStar } from "@tabler/icons-react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 type Props = {
   movieId: number;
@@ -36,8 +37,9 @@ export function CardWatchlist({
         if (!deleteResponse.ok) {
           throw new Error("Erro ao deletar da watchlist");
         }
-
-        console.log("Filme removido com sucesso");
+        toast.success(
+          `${title_movie ? title_movie : title_serie} removido com sucesso`,
+        );
 
         // Busca a lista atualizada da watchlist
         const fetchResponse = await fetch("/api/get-watchlist");
@@ -47,6 +49,7 @@ export function CardWatchlist({
         setWatchlists(data.watchlist);
       } catch (error) {
         console.error("Não foi possível deletar da watchlist", error);
+        toast.error("Não foi possível deletar da watchlist, tente mais tarde");
       }
     };
 
@@ -66,8 +69,9 @@ export function CardWatchlist({
         if (!moveResponse.ok) {
           throw new Error("Erro ao mover para assistidos");
         }
-
-        console.log("Filme movido com sucesso");
+        toast.success(
+          `${title_movie ? title_movie : title_serie} movido para assistidos`,
+        );
 
         // Busca a lista atualizada da watchlist
         const fetchResponse = await fetch("/api/get-watchlist");

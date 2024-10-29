@@ -4,6 +4,7 @@ import { MovieProps } from "@/app/types/movies-watchlist-ed";
 import { Button } from "@/components/ui/button";
 import { IconStar } from "@tabler/icons-react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 type Props = {
   movieId: number;
@@ -36,8 +37,9 @@ export function CardWatched({
         if (!deleteResponse.ok) {
           throw new Error("Erro ao deletar da watched");
         }
-
-        console.log("Filme removido com sucesso");
+        toast.success(
+          `${title_movie ? title_movie : title_serie} removido com sucesso`,
+        );
 
         // Busca a lista atualizada da watched
         const fetchResponse = await fetch("/api/get-watched");

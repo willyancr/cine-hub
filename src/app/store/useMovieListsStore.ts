@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { create } from "zustand";
 
 export type MovieProps = {
@@ -25,7 +26,6 @@ export const useStore = create<MovieListsStore>((set, get) => ({
     try {
       // Primeiro verifica se o filme já está na lista
       if (get().isInWatchlist(movie.movieId)) {
-        alert("Filme já está na watchlist!");
         return;
       }
       const response = await fetch(`/api/add-watchlist`, {
@@ -43,11 +43,11 @@ export const useStore = create<MovieListsStore>((set, get) => ({
       const data = await response.json();
       console.log("Success:", data);
 
+      // Atualiza a lista de watchlists com o novo filme adicionado
       set((state) => ({ watchlists: [...state.watchlists, movie] }));
-
-      alert("Filme adicionado com sucesso!");
     } catch (error) {
       console.error("Erro ao adicionar na watchlist:", error);
+      toast.error(`Erro ao adicionar na watchlist, tente mais tarde!`);
     }
   },
   isInWatchlist: (movieId: string) => {
@@ -56,7 +56,6 @@ export const useStore = create<MovieListsStore>((set, get) => ({
   addToWatched: async (movie) => {
     try {
       if (get().isInWatched(movie.movieId)) {
-        alert("Filme já está na watched!");
         return;
       }
       const response = await fetch(`/api/add-watched`, {
@@ -75,10 +74,9 @@ export const useStore = create<MovieListsStore>((set, get) => ({
       console.log("Success:", data);
 
       set((state) => ({ watcheds: [...state.watcheds, movie] }));
-
-      alert("Filme adicionado com sucesso!");
     } catch (error) {
       console.error("Erro ao adicionar na watched:", error);
+      toast.error(`Erro ao adicionar na watchlist, tente mais tarde!`);
     }
   },
   isInWatched: (movieId: string) => {

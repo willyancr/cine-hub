@@ -1,5 +1,10 @@
 "use client";
-import { IconInfoSquareRounded, IconStar } from "@tabler/icons-react";
+
+import {
+  IconBrandZapier,
+  IconInfoSquareRounded,
+  IconStar,
+} from "@tabler/icons-react";
 import { convertRuntime, formatCurrency } from "@/app/utils/conversion";
 import { useStore } from "@/app/store/useMovieListsStore";
 import ReviewSection from "@/app/components/card-review";
@@ -20,6 +25,8 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
   const [isActiveWatchlist, setIsActiveWatchlist] = useState(false);
   const [isActiveWatched, setIsActiveWatched] = useState(false);
   const [detailsMovies, setDetailsMovies] = useState<MovieDetails>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingWatched, setIsLoadingWatched] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -35,25 +42,43 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
   }, [id, setDetailsMovies]);
 
   const handleAddToWatchlist = async () => {
+    setIsLoading(true);
+
     if (detailsMovies) {
-      addToWatchlist({
-        movieId: detailsMovies?.id.toString(),
-        title: detailsMovies?.title || "",
-        name: detailsMovies?.name || "",
-        poster_path: detailsMovies?.poster_path,
-        vote_average: detailsMovies?.vote_average,
-      });
+      try {
+        await addToWatchlist({
+          movieId: detailsMovies?.id.toString(),
+          title: detailsMovies?.title || "",
+          name: detailsMovies?.name || "",
+          poster_path: detailsMovies?.poster_path,
+          vote_average: detailsMovies?.vote_average,
+        });
+        setIsActiveWatchlist(true);
+      } catch (error) {
+        console.error("Erro ao adicionar à watchlist:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
   const handleAddToWatched = async () => {
+    setIsLoadingWatched(true);
+
     if (detailsMovies) {
-      addToWatched({
-        movieId: detailsMovies?.id.toString(),
-        title: detailsMovies?.title || "",
-        name: detailsMovies?.name || "",
-        poster_path: detailsMovies?.poster_path,
-        vote_average: detailsMovies?.vote_average,
-      });
+      try {
+        await addToWatched({
+          movieId: detailsMovies?.id.toString(),
+          title: detailsMovies?.title || "",
+          name: detailsMovies?.name || "",
+          poster_path: detailsMovies?.poster_path,
+          vote_average: detailsMovies?.vote_average,
+        });
+        setIsActiveWatched(true);
+      } catch (error) {
+        console.error("Erro ao adicionar à watched:", error);
+      } finally {
+        setIsLoadingWatched(false);
+      }
     }
   };
 
@@ -143,23 +168,42 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
               />
 
               <div className="mt-6 flex w-full flex-col items-center justify-between gap-4 lg:flex-row lg:gap-1">
-                <Button
-                  onClick={handleAddToWatchlist}
-                  disabled={isActiveWatchlist || isActiveWatched}
-                  className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
-                >
-                  {isActiveWatchlist
-                    ? "Adicionado à Watchlist"
-                    : "Adicionar à Watchlist"}
-                </Button>
-
-                <Button
-                  onClick={handleAddToWatched}
-                  disabled={isActiveWatched}
-                  className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
-                >
-                  {isActiveWatched ? "Já Assistido" : "Marcar como Assistido"}
-                </Button>
+                {isLoading ? (
+                  <Button
+                    disabled
+                    className="flex w-full items-center justify-center rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
+                  >
+                    <IconBrandZapier size={16} className="animate-spin" />
+                    Adicionando...
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleAddToWatchlist}
+                    disabled={isActiveWatchlist || isActiveWatched}
+                    className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
+                  >
+                    {isActiveWatchlist
+                      ? "Adicionado à Watchlist"
+                      : "Adicionar à Watchlist"}
+                  </Button>
+                )}
+                {isLoadingWatched ? (
+                  <Button
+                    disabled
+                    className="flex w-full items-center justify-center rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
+                  >
+                    <IconBrandZapier size={16} className="animate-spin" />
+                    Marcando...
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleAddToWatched}
+                    disabled={isActiveWatched}
+                    className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
+                  >
+                    {isActiveWatched ? "Já Assistido" : "Marcar como Assistido"}
+                  </Button>
+                )}
               </div>
             </div>
           </div>
