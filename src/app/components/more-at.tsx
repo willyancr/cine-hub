@@ -16,7 +16,7 @@ export default function MoreAt({ title }: MoreAtProps) {
         IMDB
       </RedirectLink>
       <RedirectLink
-        href={`https://filmow.com/buscar/?year_start=&year_end=&search_seen_user=&other_seen_user=&other_want_see_user=&q=${title}&order=boost`}
+        href={`https://filmow.com/buscar/?year_start=&year_end=&other_seen_user=&other_want_see_user=&q=${title}&redo_search=&order=date-dec`}
         className="whitespace-nowrap"
       >
         FILMOW
