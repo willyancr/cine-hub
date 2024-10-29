@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { api } from "@/app/lib/axios";
 import Image from "next/image";
+import MoreAt from "@/app/components/more-at";
 
 export default function DetailsSerie({ params }: { params: { id: string } }) {
   const id = params.id;
@@ -136,6 +137,10 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
                   </span>
                 </div>
               </div>
+
+              <MoreAt
+                title={detailsSeries?.title || detailsSeries?.name || ""}
+              />
 
               <div className="mt-6 flex w-full flex-col items-center justify-between gap-4 lg:flex-row lg:gap-1">
                 <Button

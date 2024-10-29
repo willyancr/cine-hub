@@ -1,7 +1,7 @@
 "use client";
 
 import { MovieProps } from "@/app/types/movies-watchlist-ed";
-import { IconUserPlus } from "@tabler/icons-react";
+import { IconHourglassHigh } from "@tabler/icons-react";
 import { CardWatchlist } from "./card-watchlist";
 import { useEffect, useState } from "react";
 
@@ -27,7 +27,7 @@ export default function Watchlist() {
     <main className="mb-40 max-h-screen w-full flex-grow p-6">
       <div className="mt-10 flex flex-col gap-12">
         <h1 className="flex items-center gap-2 text-3xl font-bold">
-          <IconUserPlus stroke={1.5} size={32} className="text-primary" />
+          <IconHourglassHigh stroke={1.5} size={32} className="text-primary" />
           Watchlist
         </h1>
 
