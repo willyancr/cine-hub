@@ -5,24 +5,29 @@ import { CardWatched } from "./card-watched";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import CardLogin from "@/app/components/card-login";
+import Loading from "@/app/components/loading";
 
 export default function Watched() {
   const [watcheds, setWatcheds] = useState<MovieProps[]>([]);
   const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    try {
-      fetch("/api/get-watched")
-        .then((res) => res.json())
-        .then((data) => {
-          setWatcheds(data.watched);
-        });
-    } catch (err) {
-      console.error(
-        "Não foi possivel retornar a lista de filmes/series na watched",
-        err,
-      );
-    }
+    setIsLoading(true);
+    (async () => {
+      try {
+        const res = await fetch("/api/get-watched");
+        const data = await res.json();
+        setWatcheds(data.watched);
+      } catch (err) {
+        console.error(
+          "Não foi possivel retornar a lista de filmes/series na watched",
+          err,
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    })();
   }, []);
   console.log(watcheds);
   return (
@@ -43,6 +48,9 @@ export default function Watched() {
               Você assitiu {watcheds?.length ? watcheds.length : "0"}{" "}
               filme/serie(s).
             </span>
+
+            {isLoading && <Loading />}
+
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {watcheds?.map((watched) => (
                 <div key={watched.movieId}>

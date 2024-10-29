@@ -30,7 +30,7 @@ export default function ButtonLogin() {
   return session ? (
     <Button
       onClick={handleSignOut}
-      className="flex w-full max-w-xs items-center justify-between gap-2 overflow-hidden rounded-xl bg-gradient-custom px-4 py-2 text-white shadow-xl transition-all hover:brightness-110"
+      className="flex w-full max-w-xs items-center justify-between gap-2 overflow-hidden rounded-xl bg-zinc-300 px-4 py-2 text-zinc-600 shadow-xl transition-all hover:brightness-110"
     >
       <Image
         src={session.user.image || ""}
