@@ -7,7 +7,6 @@ CineHub é um projeto em desenvolvimento que visa criar um catálogo pessoal e i
 - API: The Movie Database (TMDb)
 
 
-
 ## Funcionalidades (Em desenvolvimento)
 
 ### Lista de Assistidos:
