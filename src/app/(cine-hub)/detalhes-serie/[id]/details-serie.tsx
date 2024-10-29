@@ -183,7 +183,7 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
                 ) : (
                   <Button
                     onClick={handleAddToWatchlist}
-                    disabled={isActiveWatchlist || isActiveWatched}
+                    disabled={isActiveWatchlist || isActiveWatched || !session}
                     className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
                   >
                     {isActiveWatchlist
@@ -202,7 +202,7 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
                 ) : (
                   <Button
                     onClick={handleAddToWatched}
-                    disabled={isActiveWatched}
+                    disabled={isActiveWatched || !session}
                     className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
                   >
                     {isActiveWatched ? "Já Assistido" : "Marcar como Assistido"}

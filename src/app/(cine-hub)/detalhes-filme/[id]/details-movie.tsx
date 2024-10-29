@@ -170,7 +170,7 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
               <MoreAt
                 title={detailsMovies?.title || detailsMovies?.name || ""}
               />
-
+              
               <div className="mt-6 flex w-full flex-col items-center justify-between gap-4 lg:flex-row lg:gap-1">
                 {isLoading ? (
                   <Button
@@ -183,7 +183,7 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
                 ) : (
                   <Button
                     onClick={handleAddToWatchlist}
-                    disabled={isActiveWatchlist || isActiveWatched}
+                    disabled={isActiveWatchlist || isActiveWatched || !session}
                     className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
                   >
                     {isActiveWatchlist
@@ -202,7 +202,7 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
                 ) : (
                   <Button
                     onClick={handleAddToWatched}
-                    disabled={isActiveWatched}
+                    disabled={isActiveWatched || !session}
                     className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
                   >
                     {isActiveWatched ? "Já Assistido" : "Marcar como Assistido"}

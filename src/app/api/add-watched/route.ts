@@ -15,22 +15,25 @@ export async function POST(request: Request) {
   const { userId, movieId, title, name, poster_path, vote_average } = body;
 
   try {
+    // Verifica se o filme já está na watchlist, se estiver deleta
     const existingMovieInWatchlist = await prisma.watchlist.findFirst({
-      where: { movieId },
+      where: { movieId, userId },
     });
 
-    // Verifica se o filme já está na watchlist, se estiver deleta
     if (existingMovieInWatchlist) {
       await prisma.watchlist.deleteMany({
-        where: { movieId },
+        where: { movieId, userId },
       });
+      return NextResponse.json(
+        { message: "Filme removido da sua watchlist." },
+        { status: 200 },
+      );
     }
-
+    // Verifica se o filme já está na watched
     const existingMovieInWatched = await prisma.watched.findFirst({
-      where: { movieId },
+      where: { movieId, userId },
     });
 
-    // Verifica se o filme já está na watched
     if (existingMovieInWatched) {
       return NextResponse.json(
         { message: "Este filme já está na sua watched" },

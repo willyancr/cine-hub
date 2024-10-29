@@ -8,22 +8,21 @@ import {
 } from "@tabler/icons-react";
 import NaviBar from "./navibar";
 import InputSearch from "./input-search";
+import ButtonLogin from "./button-login";
 
 export default function SideBar() {
   return (
-    <div className="flex">
-      <aside className="m-5 flex h-screen w-56 flex-col rounded-xl bg-gradient-to-br from-[#141E30] to-[#243B55] p-6">
+    <div className="flex h-screen">
+      <aside className="m-5 flex w-56 flex-col rounded-xl bg-gradient-to-br from-[#141E30] to-[#243B55] p-6">
         <div className="mb-16 mt-5 flex items-center justify-center gap-3">
           <Image
-            src="/icon-logo.png"
+            src="/logo-cinehub-1.png"
             alt="logo"
-            width={40}
-            height={40}
+            width={1000}
+            height={1000}
             quality={100}
-            className="h-8 w-8"
+            className="h-15 w-40"
           />
-
-          <span className="text-2xl font-bold">CineHub</span>
         </div>
         <nav className="flex flex-col gap-4">
           <NaviBar href="/">
@@ -48,6 +47,9 @@ export default function SideBar() {
           </NaviBar>
           <InputSearch placeholder="Pesquisar" />
         </nav>
+        <div className="mt-auto">
+          <ButtonLogin />
+        </div>
       </aside>
     </div>
   );

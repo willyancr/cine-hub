@@ -3,9 +3,12 @@ import { IconSquareRoundedCheck } from "@tabler/icons-react";
 import { MovieProps } from "@/app/types/movies-watchlist-ed";
 import { CardWatched } from "./card-watched";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import CardLogin from "@/app/components/card-login";
 
 export default function Watched() {
   const [watcheds, setWatcheds] = useState<MovieProps[]>([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     try {
@@ -34,23 +37,30 @@ export default function Watched() {
           Assistidos
         </h1>
 
-        <span className="w-full border-b">
-          Você assitiu {watcheds?.length ? watcheds.length : '0'} filme/serie(s).
-        </span>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {watcheds?.map((watched) => (
-            <div key={watched.movieId}>
-              <CardWatched
-                movieId={watched.movieId}
-                url={watched.movie.poster_path}
-                title_movie={watched.movie.title}
-                title_serie={watched.movie.name}
-                vote_average={watched.movie.vote_average}
-                setWatcheds={setWatcheds}
-              />
+        {session ? (
+          <>
+            <span className="w-full border-b">
+              Você assitiu {watcheds?.length ? watcheds.length : "0"}{" "}
+              filme/serie(s).
+            </span>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              {watcheds?.map((watched) => (
+                <div key={watched.movieId}>
+                  <CardWatched
+                    movieId={watched.movieId}
+                    url={watched.movie.poster_path}
+                    title_movie={watched.movie.title}
+                    title_serie={watched.movie.name}
+                    vote_average={watched.movie.vote_average}
+                    setWatcheds={setWatcheds}
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        ) : (
+          <CardLogin />
+        )}
       </div>
     </main>
   );

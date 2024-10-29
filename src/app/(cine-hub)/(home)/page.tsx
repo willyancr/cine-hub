@@ -22,8 +22,9 @@ export default function Home() {
       description: "Um super-herói de superpoderes",
     },
   ];
+
   return (
-    <main className="max-h-screen w-full flex-grow p-6 mb-40">
+    <main className="h-screen w-full flex-grow p-6">
       <div className="flex flex-col gap-4">
         <h1 className="flex items-center gap-2 text-3xl font-bold">
           Destaques

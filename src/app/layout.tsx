@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import SideBar from "@/app/components/sidebar";
-import { Toaster } from "react-hot-toast";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -25,8 +23,6 @@ export default function RootLayout({
       <body
         className={`${nunito.className} mx-auto flex w-full max-w-[1200px] antialiased`}
       >
-        <Toaster />
-        <SideBar />
         {children}
       </body>
     </html>

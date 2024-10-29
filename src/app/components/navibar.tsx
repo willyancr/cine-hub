@@ -17,7 +17,7 @@ export default function NaviBar({ children, href }: NaviBarProps) {
       className={cn(
         "flex items-center gap-3 rounded-xl p-2 text-zinc-400 transition-all hover:text-zinc-50",
         isActive &&
-          "rounded-xl bg-gradient-custom text-zinc-50 brightness-110 transition-all",
+          "rounded-xl bg-gradient-custom text-zinc-50 shadow-xl brightness-110 transition-all",
       )}
     >
       {children}
