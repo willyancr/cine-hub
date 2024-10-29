@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { api } from "@/app/lib/axios";
 import Image from "next/image";
 import MoreAt from "@/app/components/more-at";
+import { useSession } from "next-auth/react";
 
 export default function DetailsSerie({ params }: { params: { id: string } }) {
   const id = params.id;
@@ -27,6 +28,7 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
   const [detailsSeries, setDetailsSeries] = useState<SerieDetails>();
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingWatched, setIsLoadingWatched] = useState(false);
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (id) {
@@ -44,9 +46,10 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
   const handleAddToWatchlist = async () => {
     setIsLoading(true);
 
-    if (detailsSeries) {
+    if (session && session?.user && detailsSeries) {
       try {
         await addToWatchlist({
+          userId: session?.user?.id || "",
           movieId: detailsSeries?.id.toString(),
           title: detailsSeries?.title || "",
           name: detailsSeries?.name || "",
@@ -64,9 +67,10 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
   const handleAddToWatched = async () => {
     setIsLoadingWatched(true);
 
-    if (detailsSeries) {
+    if (session && session?.user && detailsSeries) {
       try {
         await addToWatched({
+          userId: session?.user?.id || "",
           movieId: detailsSeries?.id.toString(),
           title: detailsSeries?.title || "",
           name: detailsSeries?.name || "",

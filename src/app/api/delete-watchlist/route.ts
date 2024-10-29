@@ -3,11 +3,12 @@ import { NextResponse } from "next/server";
 
 type MovieProps = {
   movieId: string;
+  userId: string;
 };
 
 export async function DELETE(req: Request) {
   const body: MovieProps = await req.json();
-  const { movieId } = body;
+  const { movieId, userId } = body;
 
   try {
     const movie = await prisma.movie.findUnique({
@@ -26,6 +27,7 @@ export async function DELETE(req: Request) {
     const watchlist = await prisma.watchlist.deleteMany({
       where: {
         movieId,
+        userId,
       },
     });
 

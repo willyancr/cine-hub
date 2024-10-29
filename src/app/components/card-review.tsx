@@ -38,7 +38,7 @@ export default function ReviewSection({ id, review }: { id: string, review: stri
                   <div className="flex gap-1">
                     <IconStar stroke={1.5} size={16} className="text-primary" />
                     <span className="text-sm font-medium">
-                      {review.author_details.rating.toFixed(1)}/10
+                      {review.author_details?.rating?.toFixed(1) || 'sem nota'}/10
                     </span>
                   </div>
                 </div>

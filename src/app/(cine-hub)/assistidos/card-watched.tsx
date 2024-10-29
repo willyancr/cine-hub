@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { IconStar } from "@tabler/icons-react";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 type Props = {
   movieId: number;
@@ -22,16 +23,24 @@ export function CardWatched({
   vote_average,
   setWatcheds,
 }: Props) {
+  const { data: session } = useSession();
+
   const deleteMovie = (movieId: number) => {
     const removeMovie = async () => {
+      if (!session?.user?.id) {
+        console.error("Usuário não autenticado");
+        return;
+      }
       try {
-        // Remove o filme da watched
         const deleteResponse = await fetch(`/api/delete-watched`, {
           method: "DELETE",
           headers: {
             "Content-type": "application/json",
           },
-          body: JSON.stringify({ movieId: movieId.toString() }),
+          body: JSON.stringify({
+            movieId: movieId.toString(),
+            userId: session?.user.id,
+          }),
         });
 
         if (!deleteResponse.ok) {

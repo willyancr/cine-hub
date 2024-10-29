@@ -7,11 +7,12 @@ type MovieProps = {
   name: string;
   poster_path: string;
   vote_average: number;
+  userId: string;
 };
 
 export async function POST(request: Request) {
   const body: MovieProps = await request.json();
-  const { movieId, title, name, poster_path, vote_average } = body;
+  const { userId,movieId, title, name, poster_path, vote_average } = body;
 
   try {
     const existingMovieInWatchlist = await prisma.watchlist.findFirst({
@@ -42,6 +43,7 @@ export async function POST(request: Request) {
     // Adiciona à watchlist
     const watchlist = await prisma.watchlist.create({
       data: {
+        userId,
         movieId: movie.id,
       },
     });

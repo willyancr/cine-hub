@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { IconStar } from "@tabler/icons-react";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 type Props = {
   movieId: number;
@@ -22,16 +23,24 @@ export function CardWatchlist({
   vote_average,
   setWatchlists,
 }: Props) {
+  const { data: session } = useSession();
+
   const deleteMovie = (movieId: number) => {
     const removeMovie = async () => {
+      if (!session?.user?.id) {
+        console.error("Usuário não autenticado");
+        return;
+      }
       try {
-        // Remove o filme da watchlist
         const deleteResponse = await fetch(`/api/delete-watchlist`, {
           method: "DELETE",
           headers: {
             "Content-type": "application/json",
           },
-          body: JSON.stringify({ movieId: movieId.toString() }),
+          body: JSON.stringify({
+            movieId: movieId.toString(),
+            userId: session?.user.id,
+          }),
         });
 
         if (!deleteResponse.ok) {
@@ -57,13 +66,21 @@ export function CardWatchlist({
   };
   const moveToWatched = (movieId: number) => {
     const moveMovie = async () => {
+      if (!session?.user?.id) {
+        console.error("Usuário não autenticado");
+        return;
+      }
       try {
         const moveResponse = await fetch(`/api/move-to-watched`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
           },
-          body: JSON.stringify({ movieId: movieId.toString() }),
+
+          body: JSON.stringify({
+            movieId: movieId.toString(),
+            userId: session?.user.id,
+          }),
         });
 
         if (!moveResponse.ok) {
