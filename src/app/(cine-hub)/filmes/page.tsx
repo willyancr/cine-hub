@@ -1,12 +1,12 @@
 import InputSearch from "@/app/components/input-search";
 import { IconMovie } from "@tabler/icons-react";
 import MoviePopular from "./movie-popular";
-import MovieShowing from "./movie-showing";
-import MovieUpComing from "./movie-upcoming";
+import MovieTopRated from "./movie-top-rated";
+import MovieTrending from "./movie-trending";
 
 export default function Movies() {
   return (
-    <main className=" w-full flex-grow p-6 mb-10">
+    <main className="mb-10 w-full flex-grow p-6">
       <div className="flex flex-col gap-12">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <h1 className="flex items-center gap-2 text-3xl font-bold">
@@ -15,9 +15,9 @@ export default function Movies() {
           </h1>
           <InputSearch placeholder="Pesquisar filmes" />
         </div>
+        <MovieTrending />
         <MoviePopular />
-        <MovieShowing />
-        <MovieUpComing />
+        <MovieTopRated />
       </div>
     </main>
   );

@@ -1,8 +1,8 @@
 import InputSearch from "@/app/components/input-search";
 import { IconDeviceTv } from "@tabler/icons-react";
+import SerieTrending from "./serie-trending";
+import SerieTopRated from "./serie-top-rated";
 import SeriePopular from "./serie-popular";
-import SerieShowing from "./serie-top-rated";
-import SerieUpComing from "./serie-upcoming";
 
 export default function Series() {
   return (
@@ -15,9 +15,9 @@ export default function Series() {
           </h1>
           <InputSearch placeholder="Pesquisar series" />
         </div>
+        <SerieTrending />
         <SeriePopular />
-        <SerieShowing />
-        <SerieUpComing />
+        <SerieTopRated />
       </div>
     </main>
   );

@@ -12,11 +12,11 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function MovieShowing() {
+export default function MovieTopRated() {
   const [movies, setMovies] = useState<VideoContent>({ results: [] });
 
   useEffect(() => {
-    api.get(`/movie/now_playing`).then((response) => {
+    api.get(`/movie/top_rated`).then((response) => {
       setMovies(response.data);
     });
   }, [setMovies]);
@@ -25,7 +25,7 @@ export default function MovieShowing() {
     <div className="flex flex-col gap-4">
       <h1 className="mt-5 flex items-center gap-2 text-3xl font-bold">
         <IconPlayerPlay stroke={1.5} size={32} className="text-primary" />
-        Em Cartaz
+        Melhores Avaliações
       </h1>
       <div className="grid grid-cols-1 gap-1">
         <Swiper

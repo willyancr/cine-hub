@@ -17,9 +17,9 @@ export default function Home() {
     },
     {
       id: "02",
-      url: "/capa-batman.jpg",
-      title: "Batman",
-      description: "Um super-herói de superpoderes",
+      url: "/logo-3.jpg",
+      title: "",
+      description: "Seu catálogo pessoal e intuitivo para organizar seus filmes e séries favoritos",
     },
   ];
 

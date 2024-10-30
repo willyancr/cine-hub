@@ -36,7 +36,7 @@ export default function Watchlist() {
       <div className="mt-10 flex flex-col gap-12">
         <h1 className="flex items-center gap-2 text-3xl font-bold">
           <IconHourglassHigh stroke={1.5} size={32} className="text-primary" />
-          Watchlist
+          Quero Assitir
         </h1>
         {session ? (
           <>

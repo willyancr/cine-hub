@@ -2,7 +2,7 @@
 
 import { api } from "@/app/lib/axios";
 import { VideoContent } from "@/app/types/video-content";
-import { IconHourglassHigh, IconStar } from "@tabler/icons-react";
+import { IconTrendingUp, IconStar } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -12,11 +12,11 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function MovieUpComing() {
+export default function MovieTrending() {
   const [movies, setMovies] = useState<VideoContent>({ results: [] });
 
   useEffect(() => {
-    api.get(`/movie/upcoming`).then((response) => {
+    api.get(`/trending/movie/day`).then((response) => {
       setMovies(response.data);
     });
   }, [setMovies]);
@@ -24,8 +24,8 @@ export default function MovieUpComing() {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="mt-5 flex items-center gap-2 text-3xl font-bold">
-        <IconHourglassHigh stroke={1.5} size={32} className="text-primary" />
-        Lançado em breve
+        <IconTrendingUp stroke={1.5} size={32} className="text-primary" />
+        Tendência do dia
       </h1>
       <div className="grid grid-cols-1 gap-1">
         <Swiper

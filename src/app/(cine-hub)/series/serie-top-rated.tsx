@@ -12,7 +12,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function SerieShowing() {
+export default function SerieTopRated() {
   const [series, setSeries] = useState<VideoContent>({ results: [] });
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function SerieShowing() {
     <div className="flex flex-col gap-4">
       <h1 className="mt-5 flex items-center gap-2 text-3xl font-bold">
         <IconStar stroke={1.5} size={32} className="text-primary" />
-        Mais votadas
+        Melhores Avaliações
       </h1>
       <div className="grid grid-cols-1 gap-1">
         <Swiper
