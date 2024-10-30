@@ -39,7 +39,7 @@ export default function SideBar() {
           </NaviBar>
           <NaviBar href="/watchlist">
             <IconHourglassHigh stroke={1.5} />
-            Watchlist
+            Quero Assitir
           </NaviBar>
           <NaviBar href="/assistidos">
             <IconSquareRoundedCheck stroke={1.5} />

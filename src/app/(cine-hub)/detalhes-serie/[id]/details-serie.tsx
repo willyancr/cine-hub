@@ -187,8 +187,8 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
                     className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
                   >
                     {isActiveWatchlist
-                      ? "Adicionado à Watchlist"
-                      : "Adicionar à Watchlist"}
+                      ? "Adicionado à Lista"
+                      : "Marcar para Assistir"}
                   </Button>
                 )}
                 {isLoadingWatched ? (

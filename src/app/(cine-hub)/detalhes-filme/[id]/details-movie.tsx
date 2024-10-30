@@ -178,7 +178,7 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
                     className="flex w-full items-center justify-center rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
                   >
                     <IconBrandZapier size={16} className="animate-spin" />
-                    Adicionando...
+                    Marcando...
                   </Button>
                 ) : (
                   <Button
@@ -187,8 +187,8 @@ export default function DetailsMovie({ params }: { params: { id: string } }) {
                     className="w-full rounded-xl bg-gradient-custom text-white transition-all hover:brightness-110"
                   >
                     {isActiveWatchlist
-                      ? "Adicionado à Watchlist"
-                      : "Adicionar à Watchlist"}
+                      ? "Adicionado à Lista"
+                      : "Marcar para Assistir"}
                   </Button>
                 )}
                 {isLoadingWatched ? (
