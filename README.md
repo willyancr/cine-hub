@@ -22,7 +22,6 @@ CineHub é uma aplicação web que permite aos usuários gerenciar suas listas d
 - **Next.js API Routes**
 - **Prisma**: ORM para comunicação com o banco de dados
 - **PostgreSQL**: Banco de dados relacional
-- **Fastify** (em desenvolvimento): Server-side render otimizado
 
 ## Estrutura de Funcionalidades
 
