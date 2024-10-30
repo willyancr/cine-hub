@@ -30,7 +30,7 @@ export default function ButtonLogin() {
   return session ? (
     <Button
       onClick={handleSignOut}
-      className="flex w-full max-w-xs items-center justify-between gap-2 overflow-hidden rounded-xl bg-zinc-300 px-4 py-2 text-zinc-600 shadow-xl transition-all hover:brightness-110"
+      className="flex w-full max-w-xs items-center justify-between gap-2 overflow-hidden rounded-xl bg-zinc-100 px-4 py-2 text-zinc-600 shadow-xl transition-all hover:brightness-110"
     >
       <Image
         src={session.user.image || ""}
@@ -40,7 +40,7 @@ export default function ButtonLogin() {
         quality={100}
         className="rounded-full"
       />
-      <span className="hidden truncate text-xs font-semibold sm:flex sm:max-w-[120px]">
+      <span className="hidden truncate text-xs font-bold sm:flex sm:max-w-[120px]">
         {session.user?.name}
       </span>
       <IconX className="h-5 w-5" />
