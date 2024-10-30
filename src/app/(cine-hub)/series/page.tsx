@@ -6,7 +6,7 @@ import SerieUpComing from "./serie-upcoming";
 
 export default function Series() {
   return (
-    <main className="mb-40 h-screen w-full flex-grow p-6">
+    <main className="mb-10 w-full flex-grow p-6">
       <div className="flex flex-col gap-12">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <h1 className="flex items-center gap-2 text-3xl font-bold">

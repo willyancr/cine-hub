@@ -6,7 +6,7 @@ import MovieUpComing from "./movie-upcoming";
 
 export default function Movies() {
   return (
-    <main className="h-screen w-full flex-grow p-6 mb-40">
+    <main className=" w-full flex-grow p-6 mb-10">
       <div className="flex flex-col gap-12">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <h1 className="flex items-center gap-2 text-3xl font-bold">
