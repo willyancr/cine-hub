@@ -89,7 +89,7 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
   return (
     <main className="mb-40 max-h-screen w-full flex-grow p-6">
       <div className="mt-10 flex flex-col gap-4">
-        <h1 className="flex items-center gap-2 text-3xl font-bold">
+        <h1 className="flex items-center justify-center sm:justify-start gap-2 text-3xl font-bold">
           Detalhes da Serie
           <IconInfoSquareRounded
             stroke={1.5}

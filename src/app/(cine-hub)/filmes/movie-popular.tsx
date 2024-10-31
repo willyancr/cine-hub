@@ -29,7 +29,7 @@ export default function MoviePopular() {
       </h1>
       <div className="grid grid-cols-1 gap-1">
         <Swiper
-          slidesPerView={4}
+          slidesPerView={2}
           spaceBetween={10}
           breakpoints={{
             640: { slidesPerView: 2 },

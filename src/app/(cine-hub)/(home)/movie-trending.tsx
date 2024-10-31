@@ -1,16 +1,16 @@
 "use client";
 
+import { IconStar, IconTrendingUp } from "@tabler/icons-react";
+import { VideoContent } from "@/app/types/video-content";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
+import { api } from "@/app/lib/axios";
 import Image from "next/image";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css";
-import { IconStar, IconTrendingUp } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
-import { api } from "@/app/lib/axios";
-import { VideoContent } from "@/app/types/video-content";
 import Link from "next/link";
+import "swiper/css";
 
 export default function MovieTrending() {
   const [movies, setMovies] = useState<VideoContent>({ results: [] });
@@ -29,7 +29,7 @@ export default function MovieTrending() {
       </h1>
       <div className="grid grid-cols-1 gap-1">
         <Swiper
-          slidesPerView={4}
+          slidesPerView={2}
           spaceBetween={10}
           breakpoints={{
             640: { slidesPerView: 2 },

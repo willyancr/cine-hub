@@ -1,21 +1,24 @@
-
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   IconDeviceTv,
   IconHome,
   IconHourglassHigh,
+  IconMenu2,
   IconMovie,
-  IconSquareRoundedCheck,
+  IconSquareRoundedCheck
 } from "@tabler/icons-react";
 import Image from "next/image";
-import NaviBar from "./navibar";
-import InputSearch from "./input-search";
 import ButtonLogin from "./button-login";
+import InputSearch from "./input-search";
+import NaviBar from "./navibar";
 
-export default function SideBar() {
-
+export default function MobileSideBar() {
   return (
-    <div className=" h-screen hidden sm:flex">
-      <aside className="m-5 flex w-56 flex-col rounded-xl bg-gradient-to-br from-[#141E30] to-[#243B55] p-6">
+    <Sheet>
+      <SheetTrigger className="sm:hidden fixed top-4 left-4 z-50">
+        <IconMenu2 size={24} />
+      </SheetTrigger>
+      <SheetContent side="left" className="w-[300px] bg-gradient-to-br from-[#141E30] to-[#243B55] p-6">
         <div className="mb-16 mt-5 flex items-center justify-center gap-3">
           <Image
             src="/logo-cinehub-1.png"
@@ -49,10 +52,10 @@ export default function SideBar() {
           </NaviBar>
           <InputSearch placeholder="Pesquisar" />
         </nav>
-        <div className="mt-auto">
+        <div className="mt-auto absolute bottom-4 left-4 right-4">
           <ButtonLogin />
         </div>
-      </aside>
-    </div>
+      </SheetContent>
+    </Sheet>
   );
 }

@@ -31,9 +31,9 @@ export default function Watched() {
   }, []);
   console.log(watcheds);
   return (
-    <main className="mb-40 max-h-screen w-full flex-grow p-6">
+    <main className=" w-full flex-grow p-6">
       <div className="mt-10 flex flex-col gap-12">
-        <h1 className="flex items-center gap-2 text-3xl font-bold">
+        <h1 className="flex items-center justify-center sm:justify-start gap-2 text-3xl font-bold">
           <IconSquareRoundedCheck
             stroke={1.5}
             size={32}
