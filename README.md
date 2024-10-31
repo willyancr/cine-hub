@@ -9,6 +9,7 @@ CineHub é uma aplicação web que permite aos usuários gerenciar suas listas d
 - **Assistidos**: Marque filmes e séries como assistidos (Watched).
 - **Busca por Filmes/Séries**: Realize busca por nome de filmes/séries na base da API TMDb.
 - **Detalhes**: Exiba detalhes completos de um filme ou série, como título, descrição, avaliações, pôster, etc.
+- **Resposividade**: O design é responsivo, garantindo uma experiência de usuário consistente em todos os dispositivos.
 
 ## Tecnologias Utilizadas
 
