@@ -5,5 +5,6 @@ export type MovieProps = {
     name: string;
     poster_path: string;
     vote_average: number;
+    media_type: string;
   };
 };

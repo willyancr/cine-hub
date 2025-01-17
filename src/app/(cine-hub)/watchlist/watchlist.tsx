@@ -32,7 +32,7 @@ export default function Watchlist() {
   }, []);
 
   return (
-    <main className="mb-40 max-h-screen w-full flex-grow p-6">
+    <main className="mb-10 w-full flex-grow p-6">
       <div className="mt-10 flex flex-col gap-12">
         <h1 className="flex items-center justify-center gap-2 text-3xl font-bold sm:justify-start">
           <IconHourglassHigh stroke={1.5} size={32} className="text-primary" />
@@ -48,7 +48,7 @@ export default function Watchlist() {
             {isLoading && <Loading />}
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {watchlists.map((watchlist) => (
+              {watchlists.slice().reverse().map((watchlist) => (
                 <div key={watchlist.movieId}>
                   <CardWatchlist
                     movieId={watchlist.movieId}

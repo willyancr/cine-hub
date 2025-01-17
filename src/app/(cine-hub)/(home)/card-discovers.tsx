@@ -4,7 +4,7 @@ type Props = {
   title: string;
   description: string;
 };
-export function CardDescover({ url, title, description }: Props) {
+export function CardDiscover({ url, title, description }: Props) {
   return (
     <div className="group/card w-full max-w-xs sm:max-w-sm md:max-w-md">
       <div

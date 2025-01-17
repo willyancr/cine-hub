@@ -1,5 +1,5 @@
 "use client";
-import { CardDescover } from "@/app/(cine-hub)/(home)/card-discovers";
+import { CardDiscover } from "@/app/(cine-hub)/(home)/card-discovers";
 import { IconSparkles } from "@tabler/icons-react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -37,7 +37,7 @@ export default function Home() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {discovers.map((discover) => (
             <div key={discover.id}>
-              <CardDescover
+              <CardDiscover
                 url={discover.url}
                 title={discover.title}
                 description={discover.description}
