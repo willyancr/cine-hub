@@ -21,8 +21,16 @@ import { useSession } from "next-auth/react";
 export default function DetailsSerie({ params }: { params: { id: string } }) {
   const id = params.id;
 
-  const { addToWatchlist, addToWatched, isInWatchlist, isInWatched } =
-    useStore();
+  const {
+    addToWatchlist,
+    addToWatched,
+    isInWatchlist,
+    isInWatched,
+    fetchWatchlist,
+    fetchWatched,
+    watchlists,
+    watcheds,
+  } = useStore();
   const [isActiveWatchlist, setIsActiveWatchlist] = useState(false);
   const [isActiveWatched, setIsActiveWatched] = useState(false);
   const [detailsSeries, setDetailsSeries] = useState<SerieDetails>();
@@ -31,11 +39,18 @@ export default function DetailsSerie({ params }: { params: { id: string } }) {
   const { data: session } = useSession();
 
   useEffect(() => {
+    if (session?.user) {
+      fetchWatchlist();
+      fetchWatched();
+    }
+  }, [session, fetchWatchlist, fetchWatched]);
+
+  useEffect(() => {
     if (id) {
       setIsActiveWatchlist(isInWatchlist(id));
       setIsActiveWatched(isInWatched(id));
     }
-  }, [id, isInWatchlist, isInWatched]);
+  }, [id, isInWatchlist, isInWatched, watchlists, watcheds]);
 
   useEffect(() => {
     api.get(`/tv/${id}`).then((response) => {

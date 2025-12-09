@@ -10,6 +10,12 @@ export default function MoreAt({ title }: MoreAtProps) {
       <p className="whitespace-nowrap text-sm">Mais em:</p>
 
       <RedirectLink
+        href={`https://www.rottentomatoes.com/search?search=${title}`}
+        className="whitespace-nowrap"
+      >
+        ROTTENTOMATOES
+      </RedirectLink>
+      <RedirectLink
         href={`https://www.imdb.com/find/?q=${title}&s=tt`}
         className="whitespace-nowrap"
       >

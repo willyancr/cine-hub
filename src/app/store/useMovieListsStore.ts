@@ -13,6 +13,8 @@ export type MovieProps = {
 type MovieListsStore = {
   watchlists: MovieProps[];
   watcheds: MovieProps[];
+  fetchWatchlist: () => Promise<void>;
+  fetchWatched: () => Promise<void>;
   addToWatchlist: (movie: MovieProps) => void;
   isInWatchlist: (movieId: string) => boolean;
   addToWatched: (movie: MovieProps) => void;
@@ -22,6 +24,50 @@ type MovieListsStore = {
 export const useStore = create<MovieListsStore>((set, get) => ({
   watchlists: [],
   watcheds: [],
+
+  fetchWatchlist: async () => {
+    try {
+      const response = await fetch(`/api/get-watchlist`);
+      if (!response.ok) throw new Error("Erro ao buscar watchlist");
+      
+      const data = await response.json();
+      
+      const mappedWatchlist = data.watchlist.map((item: any) => ({
+        movieId: item.movieId,
+        title: item.movie.title,
+        name: item.movie.name,
+        poster_path: item.movie.poster_path,
+        vote_average: item.movie.vote_average,
+        userId: item.userId,
+      }));
+      
+      set({ watchlists: mappedWatchlist });
+    } catch (error) {
+      console.error("Erro ao buscar watchlist:", error);
+    }
+  },
+  
+  fetchWatched: async () => {
+    try {
+      const response = await fetch(`/api/get-watched`);
+      if (!response.ok) throw new Error("Erro ao buscar watched");
+      
+      const data = await response.json();
+      
+      const mappedWatched = data.watched.map((item: any) => ({
+        movieId: item.movieId,
+        title: item.movie.title,
+        name: item.movie.name,
+        poster_path: item.movie.poster_path,
+        vote_average: item.movie.vote_average,
+        userId: item.userId,
+      }));
+      
+      set({ watcheds: mappedWatched });
+    } catch (error) {
+      console.error("Erro ao buscar watched:", error);
+    }
+  },
 
   addToWatchlist: async (movie) => {
     try {
