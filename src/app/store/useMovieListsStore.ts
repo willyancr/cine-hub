@@ -10,6 +10,17 @@ export type MovieProps = {
   userId: string;
 };
 
+type ApiMovieItem = {
+  movieId: string;
+  movie: {
+    title: string;
+    name: string;
+    poster_path: string;
+    vote_average: number;
+  };
+  userId: string;
+};
+
 type MovieListsStore = {
   watchlists: MovieProps[];
   watcheds: MovieProps[];
@@ -32,7 +43,7 @@ export const useStore = create<MovieListsStore>((set, get) => ({
       
       const data = await response.json();
       
-      const mappedWatchlist = data.watchlist.map((item: any) => ({
+      const mappedWatchlist = data.watchlist.map((item: ApiMovieItem) => ({
         movieId: item.movieId,
         title: item.movie.title,
         name: item.movie.name,
@@ -54,7 +65,7 @@ export const useStore = create<MovieListsStore>((set, get) => ({
       
       const data = await response.json();
       
-      const mappedWatched = data.watched.map((item: any) => ({
+      const mappedWatched = data.watched.map((item: ApiMovieItem) => ({
         movieId: item.movieId,
         title: item.movie.title,
         name: item.movie.name,
